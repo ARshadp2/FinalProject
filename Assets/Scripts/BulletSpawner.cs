@@ -32,11 +32,16 @@ public class BulletSpawner : MonoBehaviour
             if ((int) Time.time % 2 == 0) {
                 y = -y;
             }
-            Instantiate(bullet, new Vector3(x, 0, y), Quaternion.identity);
-            if (UnityEngine.Random.Range(0f, 1f) > .5)
-                Instantiate(bullet, new Vector3(x + 2, 0, y + 2), Quaternion.identity);
-            if (UnityEngine.Random.Range(0f, 1f) > .5)
-                Instantiate(bullet, new Vector3(x - 2, 0, y - 2), Quaternion.identity);
+            GameObject proj = Instantiate(bullet, transform.position + new Vector3(x, 0, y), Quaternion.identity);
+            proj.transform.LookAt(transform.position);
+            if (UnityEngine.Random.Range(0f, 1f) > .5) {
+                GameObject projectile = Instantiate(bullet, transform.position + new Vector3(x + 2, 0, y + 2), Quaternion.identity);
+                projectile.transform.LookAt(transform.position);
+            }
+            if (UnityEngine.Random.Range(0f, 1f) > .5) {
+                GameObject projectile = Instantiate(bullet, transform.position + new Vector3(x - 2, 0, y - 2), Quaternion.identity);
+                projectile.transform.LookAt(transform.position);
+            }
         }
     }
 }

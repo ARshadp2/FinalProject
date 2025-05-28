@@ -10,7 +10,6 @@ public class BulletBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.LookAt(new Vector3(0,0,0));
         angle = UnityEngine.Random.Range(-30f, 30f);
         transform.Rotate(90, angle, 0);
         speed = UnityEngine.Random.Range(5f, 15f);
@@ -20,7 +19,7 @@ public class BulletBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.up * speed * Time.deltaTime;
+        transform.localPosition += transform.up * speed * Time.deltaTime;
         if (Time.time - start_time > 10 || (int) Time.time % 60 == 0)
             Destroy(gameObject);
     }
