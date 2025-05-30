@@ -10,14 +10,22 @@ using Unity.MLAgents.Sensors;
 public class AIBehavior : Agent
 {
     public LayerMask layermask;
+    public GameObject spawner1;
+    public GameObject spawner2;
+    public GameObject spawner3;
+    public List<Collider> in_range = new List<Collider>();
     public int current_episode = 0;
     public float cumulative_reward = 0f;
     private float speed = 10f;
     private float current_time = 0;
-
+    public Vector3 og;
+    void Start() {
+        og = transform.position;
+    }
     void Update() {
-        if ((int) Time.time == Time.time)
-            AddReward(1f);
+        if ((int) Time.time / 10 == Time.time) {
+            AddReward(.1f);
+        }
         if (Time.time - current_time >= 60) {
             cumulative_reward = GetCumulativeReward();
             EndEpisode();
@@ -28,12 +36,15 @@ public class AIBehavior : Agent
         for (int x = 0; x < hitColliders.Length; x++) {
             if (hitColliders[x] == null) {
                 distances[x] = 0;
+                //if (!in_range.Contains(hitColliders[x]))
+                    //in_range.Add(hitColliders[x]);
             }
             else
                 distances[x] = Mathf.Abs(Vector3.Distance(transform.localPosition, hitColliders[x].transform.localPosition));
         }
         Array.Sort(distances, hitColliders);
         Array.Reverse(hitColliders);
+        
         for (int x = 0; x < 3; x++) {
             if (hitColliders[x] == null) {
                 Debug.Log("none");
@@ -51,9 +62,12 @@ public class AIBehavior : Agent
                 //Debug.Log(bullet_z + " z");
                 //Debug.Log(vel_x + " vel_x");
                 //Debug.Log(vel_z + " vel_z");
-                Debug.Log(angle + " angle change");
+                //Debug.Log(angle + " angle change");
             }
         }
+        //for (int x = 0; x < in_range.Count; x++)
+            //if (!Physics.OverlapSphere(transform.position, 10, layermask).ToList().Contains(in_range[x]))
+                //Debug.Log("dodged!");
     }
     public override void Initialize() {
         current_episode = 0;
@@ -80,6 +94,14 @@ public class AIBehavior : Agent
         }
         Array.Sort(distances, hitColliders);
         Array.Reverse(hitColliders);
+        Array.Reverse(distances);
+        for (int x = 0; x < 5; x++) {
+            if (distances[x] != 0) {
+                float distancer = distances[x];
+                if ((int) Time.time / 10 == Time.time)
+                    AddReward(distancer * .01f);
+            }
+        }
         for (int x = 0; x < 3; x++) {
             if (hitColliders[x] == null) {
                 sensor.AddObservation(0);
@@ -93,15 +115,11 @@ public class AIBehavior : Agent
                 float bullet_z = (hitColliders[x].transform.localPosition.z - transform.localPosition.z) / 15f;
                 float vel_x = hitColliders[x].GetComponent<Rigidbody>().velocity.x / 15f;
                 float vel_z = hitColliders[x].GetComponent<Rigidbody>().velocity.z / 15f;
-                float projectile_angle = hitColliders[x].transform.eulerAngles.y;
-                if (projectile_angle > 180)
-                    projectile_angle -= 360;
-                float angle = Mathf.Abs(Mathf.Atan(bullet_z/bullet_x) * Mathf.Rad2Deg - projectile_angle) / 180;
                 sensor.AddObservation(bullet_x);
                 sensor.AddObservation(bullet_z);
                 sensor.AddObservation(vel_x);
                 sensor.AddObservation(vel_z);
-                sensor.AddObservation(angle);
+                sensor.AddObservation(Vector3.Dot(hitColliders[x].transform.forward, (transform.position - hitColliders[x].transform.position).normalized));
             }
         }
 
@@ -112,11 +130,62 @@ public class AIBehavior : Agent
         sensor.AddObservation(pos_z);
         sensor.AddObservation(GetComponent<Rigidbody>().velocity.x / 15f);
         sensor.AddObservation(GetComponent<Rigidbody>().velocity.z / 15f);
+        /*
+        Collider[] hit1 = Physics.OverlapSphere(new Vector3(og.x, 0, og.y), 5, layermask);
+        Collider[] hit2 = Physics.OverlapSphere(new Vector3(og.x + 7.5f, 0, og.y), 5, layermask);
+        Collider[] hit3 = Physics.OverlapSphere(new Vector3(og.x - 7.5f, 0, og.y), 5, layermask);
+        Collider[] hit4 = Physics.OverlapSphere(new Vector3(og.x, 0, og.y + 7.5f), 5, layermask);;
+        Collider[] hit5 = Physics.OverlapSphere(new Vector3(og.x, 0, og.y - 7.5f), 5, layermask);;
+        Collider[] hit6 = Physics.OverlapSphere(new Vector3(og.x + 7.5f, 0, og.y + 7.5f), 5, layermask);
+        Collider[] hit7 = Physics.OverlapSphere(new Vector3(og.x - 7.5f, 0, og.y - 7.5f), 5, layermask);
+        Collider[] hit8 = Physics.OverlapSphere(new Vector3(og.x + 7.5f, 0, og.y - 7.5f), 5, layermask);
+        Collider[] hit9 = Physics.OverlapSphere(new Vector3(og.x - 7.5f, 0, og.y + 7.5f), 5, layermask);
+        
+        AddReward((1 - hit1.Length/10f) * .01f);
+        AddReward((1 - hit2.Length/10f) * .01f);
+        AddReward((1 - hit3.Length/10f) * .01f);
+        AddReward((1 - hit4.Length/10f) * .01f);
+        AddReward((1 - hit5.Length/10f) * .01f);
+        AddReward((1 - hit6.Length/10f) * .01f);
+        AddReward((1 - hit7.Length/10f) * .01f);
+        AddReward((1 - hit8.Length/10f) * .01f);
+        AddReward((1 - hit9.Length/10f) * .01f);
+        */
+        sensor.AddObservation((spawner1.transform.localPosition.x - transform.localPosition.x) / 15f);
+        sensor.AddObservation((spawner2.transform.localPosition.x - transform.localPosition.x) / 15f);
+        sensor.AddObservation((spawner3.transform.localPosition.x - transform.localPosition.x) / 15f);
+        sensor.AddObservation((spawner1.transform.localPosition.z - transform.localPosition.z) / 15f);
+        sensor.AddObservation((spawner2.transform.localPosition.z - transform.localPosition.z) / 15f);
+        sensor.AddObservation((spawner3.transform.localPosition.z - transform.localPosition.z) / 15f);
+
+        sensor.AddObservation(spawner1.transform.forward.x);
+        sensor.AddObservation(spawner1.transform.forward.z);
+        sensor.AddObservation(spawner2.transform.forward.x);
+        sensor.AddObservation(spawner2.transform.forward.z);
+        sensor.AddObservation(spawner3.transform.forward.x);
+        sensor.AddObservation(spawner3.transform.forward.z);
+
+        sensor.AddObservation(Vector3.Dot(spawner1.transform.forward, (transform.position - spawner1.transform.position).normalized));
+        sensor.AddObservation(Vector3.Dot(spawner2.transform.forward, (transform.position - spawner2.transform.position).normalized));
+        sensor.AddObservation(Vector3.Dot(spawner3.transform.forward, (transform.position - spawner3.transform.position).normalized));
+
+        sensor.AddObservation(spawner1.GetComponent<BulletSpawner>().cool_down/2);
+        sensor.AddObservation(spawner2.GetComponent<BulletSpawner>().cool_down/2);
+        sensor.AddObservation(spawner3.GetComponent<BulletSpawner>().cool_down/2);
+
+        for (int x = 0; x < in_range.Count; x++) {
+            if (!Physics.OverlapSphere(transform.position, 10, layermask).ToList().Contains(in_range[x]))
+                AddReward(.01f);
+        }
+        Collider[] check = Physics.OverlapSphere(transform.position, 10, layermask);
+        for (int x = 0; x < check.Length; x++) {
+            if (!in_range.Contains(check[x]))
+                in_range.Add(check[x]);
+        }
     }
 
     public override void OnActionReceived(ActionBuffers actions) {
         MoveAgent(actions.DiscreteActions);
-        //AddReward(-2f/MaxStep);
         cumulative_reward = GetCumulativeReward();
     }
 
@@ -139,6 +208,11 @@ public class AIBehavior : Agent
             discreteActionsOut[0] = 5;
         else if (Input.GetKey(KeyCode.LeftArrow))
             discreteActionsOut[0] = 7;
+
+        if (discreteActionsOut[0] == 0 && Physics.OverlapSphere(transform.position, 5, layermask).Length == 0)
+            AddReward(0.01f);
+        if (discreteActionsOut[0] == 0 && Physics.OverlapSphere(transform.position, 5, layermask).Length != 0)
+            AddReward(-0.01f);
     }
 
     public void MoveAgent(ActionSegment<int> act) {
@@ -179,9 +253,9 @@ public class AIBehavior : Agent
         }
     }
     void OnTriggerEnter(Collider other) {
-        Debug.Log("yes1");
         if (other.tag == "bullet") {
             AddReward(-10f);
+            in_range.Remove(other);
         }
         cumulative_reward = GetCumulativeReward();
     }

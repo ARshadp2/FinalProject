@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 19
-    NumStackedVectorObservations: 4
+    VectorObservationSize: 37
+    NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
       BranchSizes: 09000000
@@ -188,8 +188,13 @@ MonoBehaviour:
   layermask:
     serializedVersion: 2
     m_Bits: 51
+  spawner1: {fileID: 0}
+  spawner2: {fileID: 0}
+  spawner3: {fileID: 0}
+  in_range: []
   current_episode: 0
   cumulative_reward: 0
+  og: {x: 0, y: 0, z: 0}
 --- !u!114 &108073241894135554
 MonoBehaviour:
   m_ObjectHideFlags: 0
