@@ -11,63 +11,26 @@ public class AIBehavior : Agent
 {
     public LayerMask layermask;
     public GameObject spawner1;
-    public GameObject spawner2;
-    public GameObject spawner3;
+    public GameObject goal;
     public List<Collider> in_range = new List<Collider>();
     public int current_episode = 0;
     public float cumulative_reward = 0f;
     private float speed = 10f;
     private float current_time = 0;
+    private int hits = 0;
     public Vector3 og;
     void Start() {
         og = transform.position;
     }
     void Update() {
+        
         if ((int) Time.time / 10 == Time.time) {
-            AddReward(.1f);
+            AddReward(.1f * (10 - hits));
         }
         if (Time.time - current_time >= 60) {
             cumulative_reward = GetCumulativeReward();
             EndEpisode();
         }
-        Collider[] hitColliders = new Collider[10];
-        Physics.OverlapSphereNonAlloc(transform.localPosition, 10, hitColliders, layermask);
-        float[] distances = new float[10];
-        for (int x = 0; x < hitColliders.Length; x++) {
-            if (hitColliders[x] == null) {
-                distances[x] = 0;
-                //if (!in_range.Contains(hitColliders[x]))
-                    //in_range.Add(hitColliders[x]);
-            }
-            else
-                distances[x] = Mathf.Abs(Vector3.Distance(transform.localPosition, hitColliders[x].transform.localPosition));
-        }
-        Array.Sort(distances, hitColliders);
-        Array.Reverse(hitColliders);
-        
-        for (int x = 0; x < 3; x++) {
-            if (hitColliders[x] == null) {
-                Debug.Log("none");
-            }
-            else {
-                float bullet_x = hitColliders[x].transform.localPosition.x - transform.localPosition.x;
-                float bullet_z = hitColliders[x].transform.localPosition.z - transform.localPosition.z;
-                float vel_x = hitColliders[x].GetComponent<Rigidbody>().velocity.x;
-                float vel_z = hitColliders[x].GetComponent<Rigidbody>().velocity.z;
-                float projectile_angle = hitColliders[x].transform.eulerAngles.y;
-                if (projectile_angle > 180)
-                    projectile_angle -= 360;
-                float angle = Mathf.Abs(Mathf.Atan(bullet_z/bullet_x) * Mathf.Rad2Deg - projectile_angle);
-                //Debug.Log(bullet_x + " x");
-                //Debug.Log(bullet_z + " z");
-                //Debug.Log(vel_x + " vel_x");
-                //Debug.Log(vel_z + " vel_z");
-                //Debug.Log(angle + " angle change");
-            }
-        }
-        //for (int x = 0; x < in_range.Count; x++)
-            //if (!Physics.OverlapSphere(transform.position, 10, layermask).ToList().Contains(in_range[x]))
-                //Debug.Log("dodged!");
     }
     public override void Initialize() {
         current_episode = 0;
@@ -79,6 +42,7 @@ public class AIBehavior : Agent
         cumulative_reward = 0f;
         transform.localPosition = new Vector3(0f, 0f, 0f);
         current_time = Time.time;
+        hits = 0;
     }
 
     public override void CollectObservations(VectorSensor sensor) {
@@ -109,23 +73,27 @@ public class AIBehavior : Agent
                 sensor.AddObservation(0);
                 sensor.AddObservation(0);
                 sensor.AddObservation(0);
+                sensor.AddObservation(0);
             }
             else {
-                float bullet_x = (hitColliders[x].transform.localPosition.x - transform.localPosition.x) / 15f;
-                float bullet_z = (hitColliders[x].transform.localPosition.z - transform.localPosition.z) / 15f;
+                float bullet_x = (hitColliders[x].transform.localPosition.x - transform.localPosition.x) / 30f;
+                float bullet_z = (hitColliders[x].transform.localPosition.z - transform.localPosition.z) / 30f;
                 float vel_x = hitColliders[x].GetComponent<Rigidbody>().velocity.x / 15f;
                 float vel_z = hitColliders[x].GetComponent<Rigidbody>().velocity.z / 15f;
                 sensor.AddObservation(bullet_x);
                 sensor.AddObservation(bullet_z);
                 sensor.AddObservation(vel_x);
                 sensor.AddObservation(vel_z);
+                sensor.AddObservation(distances[x] / 30);
                 sensor.AddObservation(Vector3.Dot(hitColliders[x].transform.forward, (transform.position - hitColliders[x].transform.position).normalized));
             }
         }
 
-        float pos_x = transform.localPosition.x / 15;
-        float pos_z = transform.localPosition.z / 15;
-        
+        float pos_x = transform.localPosition.x / 30;
+        float pos_z = transform.localPosition.z / 30;
+        AddReward(Vector3.Distance(transform.position, goal.transform.position) / -30f);
+        sensor.AddObservation(transform.position.x - goal.transform.position.x);
+        sensor.AddObservation(transform.position.z - goal.transform.position.z);
         sensor.AddObservation(pos_x);
         sensor.AddObservation(pos_z);
         sensor.AddObservation(GetComponent<Rigidbody>().velocity.x / 15f);
@@ -151,37 +119,28 @@ public class AIBehavior : Agent
         AddReward((1 - hit8.Length/10f) * .01f);
         AddReward((1 - hit9.Length/10f) * .01f);
         */
-        sensor.AddObservation((spawner1.transform.localPosition.x - transform.localPosition.x) / 15f);
-        sensor.AddObservation((spawner2.transform.localPosition.x - transform.localPosition.x) / 15f);
-        sensor.AddObservation((spawner3.transform.localPosition.x - transform.localPosition.x) / 15f);
-        sensor.AddObservation((spawner1.transform.localPosition.z - transform.localPosition.z) / 15f);
-        sensor.AddObservation((spawner2.transform.localPosition.z - transform.localPosition.z) / 15f);
-        sensor.AddObservation((spawner3.transform.localPosition.z - transform.localPosition.z) / 15f);
-
-        sensor.AddObservation(spawner1.transform.forward.x);
-        sensor.AddObservation(spawner1.transform.forward.z);
-        sensor.AddObservation(spawner2.transform.forward.x);
-        sensor.AddObservation(spawner2.transform.forward.z);
-        sensor.AddObservation(spawner3.transform.forward.x);
-        sensor.AddObservation(spawner3.transform.forward.z);
+        sensor.AddObservation((spawner1.transform.localPosition.x - transform.localPosition.x) / 30f);
+        sensor.AddObservation((spawner1.transform.localPosition.z - transform.localPosition.z) / 30f);
 
         sensor.AddObservation(Vector3.Dot(spawner1.transform.forward, (transform.position - spawner1.transform.position).normalized));
-        sensor.AddObservation(Vector3.Dot(spawner2.transform.forward, (transform.position - spawner2.transform.position).normalized));
-        sensor.AddObservation(Vector3.Dot(spawner3.transform.forward, (transform.position - spawner3.transform.position).normalized));
 
         sensor.AddObservation(spawner1.GetComponent<BulletSpawner>().cool_down/2);
-        sensor.AddObservation(spawner2.GetComponent<BulletSpawner>().cool_down/2);
-        sensor.AddObservation(spawner3.GetComponent<BulletSpawner>().cool_down/2);
 
         for (int x = 0; x < in_range.Count; x++) {
-            if (!Physics.OverlapSphere(transform.position, 10, layermask).ToList().Contains(in_range[x]))
+            if (!Physics.OverlapSphere(transform.position, 10, layermask).ToList().Contains(in_range[x]) && (int) Time.time == Time.time)
                 AddReward(.01f);
         }
-        Collider[] check = Physics.OverlapSphere(transform.position, 10, layermask);
+        
+        Collider[] check = Physics.OverlapSphere(transform.position, 5f, layermask);
         for (int x = 0; x < check.Length; x++) {
             if (!in_range.Contains(check[x]))
                 in_range.Add(check[x]);
+            if ((int) Time.time == Time.time) {
+                float angle = Vector3.Dot(spawner1.transform.forward, (transform.position - spawner1.transform.position).normalized);
+                AddReward(-.1f * (angle - .3f));
+            }
         }
+        
     }
 
     public override void OnActionReceived(ActionBuffers actions) {
@@ -251,12 +210,62 @@ public class AIBehavior : Agent
                 transform.localPosition += transform.forward * speed * Time.deltaTime;
                 break;
         }
+        
+        Collider[] all_bullets = Physics.OverlapSphere(transform.position, 30f, layermask);
+        for (int x = 0; x < all_bullets.Length; x++) {
+            if (transform.position.z <= all_bullets[x].transform.position.z + 2 && (int) Time.time / 10 == Time.time) {
+                if (transform.position.x >= all_bullets[x].transform.position.z) {
+                    if (action == 1)
+                        AddReward(-1f);
+                    else if (action == 2)
+                        AddReward(-.25f);
+                    else if (action == 3)
+                        AddReward(.5f);
+                    else if (action == 4)
+                        AddReward(1f);
+                    else if (action == 5)
+                        AddReward(.5f);
+                    else if (action == 6)
+                        AddReward(.25f);
+                    else if (action == 7)
+                        AddReward(-.25f);
+                    else if (action == 8)
+                        AddReward(-.75f);
+                    else
+                        AddReward(-.25f);
+                }
+                else {
+                    if (action == 1)
+                        AddReward(-1f);
+                    else if (action == 2)
+                        AddReward(-.75f);
+                    else if (action == 3)
+                        AddReward(-.25f);
+                    else if (action == 4)
+                        AddReward(.25f);
+                    else if (action == 5)
+                        AddReward(.5f);
+                    else if (action == 6)
+                        AddReward(1f);
+                    else if (action == 7)
+                        AddReward(.5f);
+                    else if (action == 8)
+                        AddReward(-.25f);
+                    else
+                        AddReward(-.25f);
+                }
+            }
+        }
+        
     }
     void OnTriggerEnter(Collider other) {
         if (other.tag == "bullet") {
             AddReward(-10f);
             in_range.Remove(other);
+            hits++;
         }
-        cumulative_reward = GetCumulativeReward();
+        if (other.tag == "goal") {
+            AddReward(.5f * (10 - hits));
+        }
     }
 }

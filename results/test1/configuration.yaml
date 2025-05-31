@@ -43,7 +43,13 @@ behaviors:
     summary_freq: 50000
     threaded: false
     self_play: null
-    behavioral_cloning: null
+    behavioral_cloning:
+      demo_path: Assets\Demonstrations\Dodging.demo
+      steps: 0
+      strength: 1.0
+      samples_per_update: 0
+      num_epoch: null
+      batch_size: null
 env_settings:
   env_path: null
   env_args: null
@@ -59,7 +65,7 @@ engine_settings:
   width: 84
   height: 84
   quality_level: 5
-  time_scale: 20
+  time_scale: 20.0
   target_frame_rate: -1
   capture_frame_rate: 60
   no_graphics: false

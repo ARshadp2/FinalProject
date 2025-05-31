@@ -405,6 +405,7 @@
 "Assets/Scripts/AIBehavior.cs"
 "Assets/Scripts/BulletBehavior.cs"
 "Assets/Scripts/BulletSpawner.cs"
+"Assets/Scripts/Goal.cs"
 -langversion:9.0
 
 /deterministic

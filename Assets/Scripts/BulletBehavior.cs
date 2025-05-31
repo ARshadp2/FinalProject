@@ -10,8 +10,8 @@ public class BulletBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.Rotate(90, 0, 0);
-        speed = 10f;
+        transform.Rotate(90, UnityEngine.Random.Range(-30, 30f), 0);
+        speed = UnityEngine.Random.Range(5, 10);;
         start_time = Time.time;
     }
 

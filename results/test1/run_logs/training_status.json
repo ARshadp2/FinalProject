@@ -2,31 +2,22 @@
     "Evade": {
         "checkpoints": [
             {
-                "steps": 499976,
-                "file_path": "results\\test1\\Evade\\Evade-499976.onnx",
-                "reward": 7455.108814239502,
-                "creation_time": 1748579191.2631097,
+                "steps": 219080,
+                "file_path": "results\\test1\\Evade\\Evade-219080.onnx",
+                "reward": -130.70648196339607,
+                "creation_time": 1748733782.1227367,
                 "auxillary_file_paths": [
-                    "results\\test1\\Evade\\Evade-499976.pt"
-                ]
-            },
-            {
-                "steps": 500232,
-                "file_path": "results\\test1\\Evade\\Evade-500232.onnx",
-                "reward": 7455.108814239502,
-                "creation_time": 1748579191.388652,
-                "auxillary_file_paths": [
-                    "results\\test1\\Evade\\Evade-500232.pt"
+                    "results\\test1\\Evade\\Evade-219080.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 500232,
+            "steps": 219080,
             "file_path": "results\\test1\\Evade.onnx",
-            "reward": 7455.108814239502,
-            "creation_time": 1748579191.388652,
+            "reward": -130.70648196339607,
+            "creation_time": 1748733782.1227367,
             "auxillary_file_paths": [
-                "results\\test1\\Evade\\Evade-500232.pt"
+                "results\\test1\\Evade\\Evade-219080.pt"
             ]
         }
     },
