@@ -98,7 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ea91781cfb17f4aa68a1c35a8392c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 4106845423633507772, guid: a900e01254628904cb6cd302b8dd8272, type: 3}
+  bullet: {fileID: 1655137212806262, guid: 680cc712cb55643a38fb5bec71bcc683, type: 3}
   time_picked: 0
   time_mark: 0
   start_time: 0
+  sweep_right: 0
+  cool_down: 0
+  cool_down_start: 0
+  og: {x: 0, y: 0, z: 0}

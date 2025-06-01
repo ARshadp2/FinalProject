@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\diepc\\OneDrive\\Documents\\GitHub\\FinalProject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E1456745-ED92-4EB6-8905-E64DC1E47277}|Assembly-CSharp.csproj|c:\\users\\diepc\\onedrive\\documents\\github\\finalproject\\assets\\scripts\\aibehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1456745-ED92-4EB6-8905-E64DC1E47277}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\aibehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1456745-ED92-4EB6-8905-E64DC1E47277}|Assembly-CSharp.csproj|c:\\users\\diepc\\onedrive\\documents\\github\\finalproject\\assets\\scripts\\goal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1456745-ED92-4EB6-8905-E64DC1E47277}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\goal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1456745-ED92-4EB6-8905-E64DC1E47277}|Assembly-CSharp.csproj|c:\\users\\diepc\\onedrive\\documents\\github\\finalproject\\assets\\scripts\\bulletspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1456745-ED92-4EB6-8905-E64DC1E47277}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\bulletspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1456745-ED92-4EB6-8905-E64DC1E47277}|Assembly-CSharp.csproj|c:\\users\\diepc\\onedrive\\documents\\github\\finalproject\\assets\\scripts\\bulletbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1456745-ED92-4EB6-8905-E64DC1E47277}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\bulletbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Goal.cs",
+              "DocumentMoniker": "C:\\Users\\diepc\\OneDrive\\Documents\\GitHub\\FinalProject\\Assets\\Scripts\\Goal.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Goal.cs",
+              "ToolTip": "C:\\Users\\diepc\\OneDrive\\Documents\\GitHub\\FinalProject\\Assets\\Scripts\\Goal.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Goal.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T19:07:42.916Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BulletSpawner.cs",
+              "DocumentMoniker": "C:\\Users\\diepc\\OneDrive\\Documents\\GitHub\\FinalProject\\Assets\\Scripts\\BulletSpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\BulletSpawner.cs",
+              "ToolTip": "C:\\Users\\diepc\\OneDrive\\Documents\\GitHub\\FinalProject\\Assets\\Scripts\\BulletSpawner.cs",
+              "RelativeToolTip": "Assets\\Scripts\\BulletSpawner.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T18:37:13.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AIBehavior.cs",
+              "DocumentMoniker": "C:\\Users\\diepc\\OneDrive\\Documents\\GitHub\\FinalProject\\Assets\\Scripts\\AIBehavior.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\AIBehavior.cs",
+              "ToolTip": "C:\\Users\\diepc\\OneDrive\\Documents\\GitHub\\FinalProject\\Assets\\Scripts\\AIBehavior.cs",
+              "RelativeToolTip": "Assets\\Scripts\\AIBehavior.cs",
+              "ViewState": "AgIAAKIAAAAAAAAAAAAAwK8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T18:37:10.646Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BulletBehavior.cs",
+              "DocumentMoniker": "C:\\Users\\diepc\\OneDrive\\Documents\\GitHub\\FinalProject\\Assets\\Scripts\\BulletBehavior.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\BulletBehavior.cs",
+              "ToolTip": "C:\\Users\\diepc\\OneDrive\\Documents\\GitHub\\FinalProject\\Assets\\Scripts\\BulletBehavior.cs",
+              "RelativeToolTip": "Assets\\Scripts\\BulletBehavior.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T18:36:02.039Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

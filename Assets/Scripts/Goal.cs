@@ -13,6 +13,7 @@ public class Goal : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
             transform.localPosition = new Vector3(UnityEngine.Random.Range(-15, 15), 0, UnityEngine.Random.Range(-15, 15));
+            Debug.Log("Collided");
         }
     }
 }
