@@ -68,6 +68,7 @@
     <Compile Include="Assets/Scripts/BulletSpawner.cs" />
     <Compile Include="Assets/Scripts/BulletBehavior.cs" />
     <Compile Include="Assets/Scripts/Goal.cs" />
+    <Compile Include="Assets/Scripts/Score Manager.cs" />
     <Compile Include="Assets/Scripts/Menu.cs" />
     <Compile Include="Assets/Scripts/TImer.cs" />
   </ItemGroup>

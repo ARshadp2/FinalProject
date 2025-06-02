@@ -406,6 +406,7 @@
 "Assets/Scripts/BulletSpawner.cs"
 "Assets/Scripts/Goal.cs"
 "Assets/Scripts/Menu.cs"
+"Assets/Scripts/Score Manager.cs"
 "Assets/Scripts/TImer.cs"
 -langversion:9.0
 
