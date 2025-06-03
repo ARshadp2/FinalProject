@@ -19,7 +19,7 @@ public class BulletBehavior : MonoBehaviour
     void Update()
     {
         transform.localPosition += transform.up * speed * Time.deltaTime;
-        if (Time.time - start_time > 10 || (int) Time.time % 60 == 0)
+        if (Time.time - start_time > 10)
             Destroy(gameObject);
     }
     void OnTriggerEnter(Collider other) {

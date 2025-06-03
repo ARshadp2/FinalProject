@@ -40,6 +40,14 @@ public class Timer : MonoBehaviour {
     void timerEnded()
     {
         on_scene = false;
+        ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
+        AIScore ascore = FindObjectOfType<AIScore>();
+        if (scoreManager.getScore() >= ascore.getScore()) {
+            SceneManager.LoadScene(3);
+        }
+        else {
+            SceneManager.LoadScene(2);
+        }
     }
 
 

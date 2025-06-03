@@ -12,6 +12,7 @@ public class Pencil : MonoBehaviour
             if (scoreManager != null)
             {
                 scoreManager.SubtractScore(1);
+                Destroy(gameObject);
             }
         }
         if (other.CompareTag("AI"))
@@ -20,6 +21,7 @@ public class Pencil : MonoBehaviour
             if (ascore != null)
             {
                 ascore.SubtractScore(1);
+                Destroy(gameObject);
             }
         }
     }

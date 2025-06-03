@@ -12,6 +12,7 @@ public class Goal : MonoBehaviour
         transform.localPosition = new Vector3(5, 0, 0);
 
         scoreManager = FindObjectOfType<ScoreManager>();
+        ascore = FindObjectOfType<AIScore>();
     }
 
     void OnTriggerEnter(Collider other)

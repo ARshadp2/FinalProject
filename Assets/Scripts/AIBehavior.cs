@@ -27,10 +27,12 @@ public class AIBehavior : Agent
         if ((int) Time.time / 10 == Time.time) {
             AddReward(.1f * (10 - hits));
         }
+        /*
         if (Time.time - current_time >= 60) {
             cumulative_reward = GetCumulativeReward();
             EndEpisode();
         }
+        */
     }
     public override void Initialize() {
         current_episode = 0;
@@ -40,7 +42,7 @@ public class AIBehavior : Agent
     public override void OnEpisodeBegin() {
         current_episode++;
         cumulative_reward = 0f;
-        transform.localPosition = new Vector3(0f, 0f, 0f);
+        transform.localPosition = new Vector3(10, 0f, 0f);
         current_time = Time.time;
         hits = 0;
     }
